@@ -1,3 +1,5 @@
+import userData from '../fixtures/users/userData.json'
+
 describe('Orange HRM Tests', () => {
 
     const selectorsList = {
@@ -7,10 +9,11 @@ describe('Orange HRM Tests', () => {
         selectionTitleTopBar: '.oxd-topbar-header-breadcrumb-module',
         wrongCredentialAlert: '[role="alert"]'
     }
+
     it('Login Success', () => {
         cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
-        cy.get(selectorsList.username).type('Admin')
-        cy.get(selectorsList.password).type('admin123')
+        cy.get(selectorsList.username).type(userData.userSuccess.username)
+        cy.get(selectorsList.password).type(userData.userSuccess.password)
         cy.get(selectorsList.loginButton).click()
         cy.location('pathname').should('equal', '/web/index.php/dashboard/index')
         cy.get(selectorsList.selectionTitleTopBar).contains('Dashboard')
@@ -18,8 +21,8 @@ describe('Orange HRM Tests', () => {
 
     it('Login Fail', () => {
         cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
-        cy.get(selectorsList.username).type('Test')
-        cy.get(selectorsList.password).type('test')
+        cy.get(selectorsList.username).type(userData.userFail.username)
+        cy.get(selectorsList.password).type(userData.userFail.password)
         cy.get(selectorsList.loginButton).click()
         cy.get(selectorsList.wrongCredentialAlert) 
     })
