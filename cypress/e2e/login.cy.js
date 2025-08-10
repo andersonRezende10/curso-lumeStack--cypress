@@ -2,7 +2,12 @@ import userData from '../fixtures/users/userData.json'
 import LoginPage from '../pages/loginPage.js'
 import DashboardPage from '../pages/dashboardPage.js'
 import MenuPage from '../pages/menuPage.js'
+import MyInfoPage from '../pages/myInfoPage.js'
 
+const Chance = require('chance')
+const chance = new Chance()
+
+const myInfoPage = new MyInfoPage()
 const menuPage = new MenuPage()
 const dashboardPage = new DashboardPage()
 const loginPage = new LoginPage()
@@ -12,8 +17,8 @@ describe('Orange HRM Tests', () => {
     const selectorsList = {
         
         
-        firstNameField: '[name="firstName"]',
-        lastNameField: '[name="lastName"]',
+        
+        
         genericField: '.oxd-input--active',
         dateCloseButton: '.--close',
         submitButton: '[type="submit"]',
@@ -28,8 +33,8 @@ describe('Orange HRM Tests', () => {
         //cy.wait(10000)
         dashboardPage.selectorDash()
         menuPage.accessMyinfoButton()
-        cy.get(selectorsList.firstNameField).clear().type('FirstNameTeste')
-        cy.get(selectorsList.lastNameField).clear().type('LastNameTeste')
+        myInfoPage.fillPersonalDetais(chance.first(), 'LastNameTeste')
+        //myInfoPage.fillPersonalDetais('FirstNameTeste', 'LastNameTeste')
         cy.get(selectorsList.genericField).eq(2).clear().type('Teste')
         cy.get(selectorsList.genericField).eq(3).clear().type('EmployeeTeste')
         cy.get(selectorsList.genericField).eq(4).clear().type('OtherTeste')
